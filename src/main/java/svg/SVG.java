@@ -30,15 +30,18 @@ public class SVG extends Element{
 		}
 		this.width = Double.parseDouble(w);
 		this.height = Double.parseDouble(h);
-		String[] viewBox = this.getValueFromKey("viewBox", svgString).split(" ");
-		try{
-			this.viewBox = new ArrayList<Double>();
-			for(String str : viewBox) {
-				double x = Double.parseDouble(str);
-				this.viewBox.add(x);
+		String vB = this.getValueFromKey("viewBox", svgString);
+		if(vB!=null) {
+			String[] viewBox = vB.split(" ");
+			try{
+				this.viewBox = new ArrayList<Double>();
+				for(String str : viewBox) {
+					double x = Double.parseDouble(str);
+					this.viewBox.add(x);
+				}
+			} catch (NumberFormatException e) {
+				this.viewBox = null;
 			}
-		} catch (NumberFormatException e) {
-			this.viewBox = null;
 		}
 	}
 
