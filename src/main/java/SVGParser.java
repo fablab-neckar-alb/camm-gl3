@@ -31,7 +31,7 @@ public class SVGParser {
 		while(i<line.length()) {
 			if(line.startsWith("</" + this.state.peek() + ">", i)) {
 				this.cursor = this.cursor.getParent();
-				i += 2 + this.state.peek().length();
+				i += 2 + this.state.pop().length();
 			} else if(inHeader && line.startsWith(">", i)) {
 				this.header += line.charAt(i);
 				Element newEl = generateElement(this.state.peek(), this.header);
