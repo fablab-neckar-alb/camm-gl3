@@ -10,15 +10,26 @@ public class SVG extends Element{
 	protected double width;
 	protected double height;
 	protected ArrayList<Double> viewBox;
+	protected String unit;
 	
 	public SVG(String svgString) {
 		super();
 		this.version = this.getValueFromKey("version", svgString);
 		this.baseProfile = this.getValueFromKey("baseProfile", svgString);
 		String w = this.getValueFromKey("width", svgString);
-		this.width = Double.parseDouble(w.replaceAll("px", ""));
 		String h = this.getValueFromKey("height", svgString);
-		this.height = Double.parseDouble(h.replaceAll("px", ""));
+		if(w.contains("px")) {
+			w = w.replaceAll("px", "");
+			h = h.replaceAll("px", "");
+			this.unit = "px";
+		}
+		if(w.contains("%")) {
+			w = w.replaceAll("%", "");
+			h = h.replaceAll("%", "");
+			this.unit = "%";
+		}
+		this.width = Double.parseDouble(w);
+		this.height = Double.parseDouble(h);
 		String[] viewBox = this.getValueFromKey("viewBox", svgString).split(" ");
 		try{
 			this.viewBox = new ArrayList<Double>();
