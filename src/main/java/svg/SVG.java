@@ -28,4 +28,10 @@ public class SVG extends Element{
 			this.viewBox = null;
 		}
 	}
+
+	public static String getTag() {
+		return tag;
+	}
+	
+	
 }

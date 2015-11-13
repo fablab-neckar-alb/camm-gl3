@@ -44,4 +44,9 @@ public final class Circle extends Placeable{
 	public void setStrokeWidth(double strokeWidth) {
 		this.strokeWidth = strokeWidth;
 	}
+
+	public static String getTag() {
+		return tag;
+	}
+	
 }
