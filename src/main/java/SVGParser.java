@@ -62,12 +62,17 @@ public class SVGParser {
 			}
 			i++;
 		}
-		this.header += "\n";
 	}
 
 	private String getTagFromLine(String line, int i) {
-		int pos = line.indexOf(" ", i);
-		if(pos==-1) return "empty";
+		int pos1 = line.indexOf(" ", i);
+		if(pos1 == -1) pos1 = Integer.MAX_VALUE;
+		int pos2 = line.indexOf(">", i);
+		if(pos2 == -1) pos2 = Integer.MAX_VALUE;
+		int pos3 = line.indexOf("\n", i);
+		if(pos3 == -1) pos3 = Integer.MAX_VALUE;
+		int pos = Math.min(Math.min(pos1, pos2), pos3);
+		if(pos==Integer.MAX_VALUE) return "empty";
 		return line.substring(i+1, pos);
 	}
 

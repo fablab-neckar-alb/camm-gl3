@@ -24,7 +24,7 @@ public class EntryPoint {
 			String line;
 			int i=0;
 			while((line = br.readLine()) != null) {
-				parser.parse(line);
+				parser.parse(line + "\n");
 				i++;
 			}
 		} catch (FileNotFoundException e) {
