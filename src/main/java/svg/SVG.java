@@ -3,7 +3,7 @@ package svg;
 import java.util.ArrayList;
 
 public class SVG extends Element{
-	protected static String tag = "svg";
+	protected String tag = "svg";
 	
 	protected String version;
 	protected String baseProfile;

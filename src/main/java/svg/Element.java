@@ -58,7 +58,7 @@ public class Element {
 	public String toString() {
 		ArrayList<String> lines = new ArrayList<String>();
 		for(Element x : this.children) lines.addAll(Arrays.asList(x.toString().split("\n")));
-		String res = this.tag + "\n";
+		String res = this.getTag() + "\n";
 		for(String x : lines) res += "\t" + x + "\n";
 		return res;
 	}

@@ -1,7 +1,7 @@
 package svg;
 
 public final class Text extends Placeable{
-	private static String tag = "text";
+	private String tag = "text";
 	private String caption;
 	
 	public Text(String svgString) {
