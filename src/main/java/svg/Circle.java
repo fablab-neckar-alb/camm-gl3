@@ -2,7 +2,7 @@ package svg;
 
 
 public final class Circle extends Placeable{
-	protected static final String tag = "circle";
+	protected static String tag = "circle";
 	
 	protected double radius;
 	protected String strokeColor;
@@ -22,7 +22,7 @@ public final class Circle extends Placeable{
 		if(r!=null) this.radius = Double.parseDouble(r);
 		String stroke = this.getValueFromKey("stroke", svgString);
 		if(stroke!=null) this.strokeColor = stroke;
-		String strokewidth = this.getValueFromKey("stroke-width", svgString);
+		String strokewidth = this.getValueFromKey("stroke-width", svgString).replaceAll("px", "");
 		if(strokewidth!=null) this.strokeWidth = Double.parseDouble(strokewidth);
 	}
 	
@@ -45,7 +45,7 @@ public final class Circle extends Placeable{
 		this.strokeWidth = strokeWidth;
 	}
 
-	public static String getTag() {
+	public String getTag() {
 		return tag;
 	}
 	
