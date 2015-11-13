@@ -78,11 +78,10 @@ public class SVGParser {
 
 	private Element generateElement(String tag, String svgString) {
 		System.out.println("Generating " + tag + " by\n" + this.header + "\n");
-		if(tag=="svg") return new SVG(svgString);
-		if(tag=="circle") return new Circle(svgString);
-		if(tag=="text") return new Text(svgString);
-		
-		return new Element(svgString, tag);
+		if(tag.equals("svg")) return new SVG(svgString);
+		else if(tag.equals("circle")) return new Circle(svgString);
+		else if(tag.equals("text")) return new Text(svgString);
+		else return new Element(svgString, "unknown_" + tag + "_");
 	}
 
 	public Element getRoot() {
