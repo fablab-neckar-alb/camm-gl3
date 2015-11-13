@@ -20,15 +20,16 @@ public class SVGParser {
 	
 	public SVGParser() {
 		this.acceptableTags = new ArrayList<String>();
-		this.root = new Element();
+		this.root = new Element("", "root");
 		this.cursor = this.root;
 		this.state = new Stack<String>();
+		this.state.push("root");
 	}
 	
 	public void parse(String line) {
 		int i=0;
 		while(i<line.length()) {
-			if(line.startsWith("</" + this.state + ">", i)) {
+			if(line.startsWith("</" + this.state.peek() + ">", i)) {
 				this.cursor = this.cursor.getParent();
 				i += 2 + this.state.peek().length();
 			} else if(inHeader && line.startsWith(">", i)) {
