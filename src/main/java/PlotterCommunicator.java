@@ -15,7 +15,7 @@ public class PlotterCommunicator {
 	
 	public PlotterCommunicator(String infile) throws IOException {
 		Path path = Paths.get(infile);
-		channel = AsynchronousFileChannel.open(path, StandardOpenOption.WRITE);
+		channel = AsynchronousFileChannel.open(path, StandardOpenOption.WRITE, StandardOpenOption.READ);
 		buffer = ByteBuffer.allocate(100);
 	}
 	
@@ -24,21 +24,17 @@ public class PlotterCommunicator {
 	
 			
         CompletionHandler handler = new CompletionHandler() {
-          @Override
-          public void failed(Throwable e, Object attachment) {
-
-            System.out.println(attachment + " failed with exception:");
-            e.printStackTrace();
-          }
-          @Override
-          public void completed(Integer result, Object attachment) { 
-			
-            System.out.println(attachment + " completed and " + result + " bytes are written.");
-          } 
+		    @Override
+	        public void completed(Object result, Object attachment) {
+	        	System.out.println(attachment + " completed and " + result + " bytes are written.");
+	        }
+		    @Override
+		    public void failed(Throwable e, Object attachment) {
+		      System.out.println(attachment + " failed with exception:");
+		      e.printStackTrace();
+		    }
         };
-	
         channel.write(buffer, 0, "Write operation ALFA", handler);
-	
 	}
 	
 	public String read() {
