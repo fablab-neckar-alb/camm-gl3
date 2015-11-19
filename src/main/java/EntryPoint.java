@@ -18,8 +18,8 @@ public class EntryPoint {
 		SVGParser svgP = new SVGParser();
 		parseFile(svgP);
 		System.out.println(svgP.getRoot().toString());
-		System.out.println(svgP.getRoot().toCAMM(settings.getGlobal_scale()));
 		String commands = svgP.getRoot().toCAMM(settings.getGlobal_scale());
+		System.out.println(commands);
 		try {
 			PlotterCommunicator comm = new PlotterCommunicator(settings.getPlotterDevice());
 			comm.send(commands);

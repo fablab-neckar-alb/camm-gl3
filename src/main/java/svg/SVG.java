@@ -53,9 +53,9 @@ public class SVG extends Element{
 		String res = "";
 		for(Element x : this.children) {
 			res += x.toCAMM(globalScale);
-			res += "^OA;\n";
+			//res += "^OA;\n";
 		}
-		res += "H\n";
+		//res += "H\n";
 		return res;
 	}
 	

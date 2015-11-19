@@ -34,12 +34,16 @@ public class CmdLine {
 
 	private static void addCommandLineOptions(Options options) {
 		options.addOption("h", "help", false, "displays this help message");
+		options.addOption("s", "scale", true, "global scale");
 		
 	}
 
 	private static Settings generateSettingsFromCmd(CommandLine cmd) {
 		Settings res = new Settings();
 		res.setInfile(cmd.getArgList().get(0)); //Here is assumed, that the first argument without a key is the FILE
+		String s = cmd.getOptionValue("s");
+        if(s!=null) res.setGlobal_scale(Double.parseDouble(s));
+
 		return res;
 	}
 }
