@@ -12,6 +12,7 @@ public class PlotterCommunicator {
 
 	private AsynchronousFileChannel channel;
 	private ByteBuffer buffer;
+	private boolean sendPending;
 	
 	public PlotterCommunicator(String infile) throws IOException {
 		Path path = Paths.get(infile);
@@ -22,11 +23,12 @@ public class PlotterCommunicator {
 	public void send(String input) {
         ByteBuffer buffer = ByteBuffer.wrap(input.getBytes());
 	
-			
+		sendPending = true;
         CompletionHandler handler = new CompletionHandler() {
 		    @Override
 	        public void completed(Object result, Object attachment) {
 	        	System.out.println(attachment + " completed and " + result + " bytes are written.");
+	        	sendPending = false;
 	        }
 		    @Override
 		    public void failed(Throwable e, Object attachment) {
@@ -35,6 +37,7 @@ public class PlotterCommunicator {
 		    }
         };
         channel.write(buffer, 0, "Write operation ALFA", handler);
+        while(sendPending);
 	}
 	
 	public String read() {

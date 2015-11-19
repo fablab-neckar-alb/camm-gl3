@@ -23,6 +23,7 @@ public class EntryPoint {
 		try {
 			PlotterCommunicator comm = new PlotterCommunicator(settings.getPlotterDevice());
 			comm.send(commands);
+			
 			comm.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
