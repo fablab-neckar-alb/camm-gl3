@@ -6,6 +6,10 @@ import java.io.IOException;
 
 
 
+/** sudo chmod o+rw /dev/usb/lp0
+ * @author justin
+ *
+ */
 public class EntryPoint {
 	private static Settings settings;
 
@@ -15,8 +19,15 @@ public class EntryPoint {
 		parseFile(svgP);
 		System.out.println(svgP.getRoot().toString());
 		System.out.println(svgP.getRoot().toCAMM(settings.getGlobal_scale()));
-		
-		
+		String commands = svgP.getRoot().toCAMM(settings.getGlobal_scale());
+		try {
+			PlotterCommunicator comm = new PlotterCommunicator(settings.getPlotterDevice());
+			comm.send(commands);
+			while(true) System.out.print(comm.read());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	

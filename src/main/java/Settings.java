@@ -1,6 +1,7 @@
 
 public final class Settings {
 	private String infile;
+	private String plotterDevice = "/dev/usb/lp0";
 	
 	private double global_scale = 1.0;
 
@@ -18,6 +19,10 @@ public final class Settings {
 
 	public void setGlobal_scale(double global_scale) {
 		this.global_scale = global_scale;
+	}
+
+	public String getPlotterDevice() {
+		return plotterDevice;
 	}
 	
 }
