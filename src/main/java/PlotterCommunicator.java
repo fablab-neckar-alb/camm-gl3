@@ -15,7 +15,7 @@ public class PlotterCommunicator {
 	
 	public PlotterCommunicator(String infile) throws IOException {
 		Path path = Paths.get(infile);
-		channel = AsynchronousFileChannel.open(path, StandardOpenOption.READ);
+		channel = AsynchronousFileChannel.open(path, StandardOpenOption.WRITE);
 		buffer = ByteBuffer.allocate(100);
 	}
 	
