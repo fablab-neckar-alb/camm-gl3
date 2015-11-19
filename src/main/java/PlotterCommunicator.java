@@ -20,11 +20,13 @@ public class PlotterCommunicator {
 		buffer = ByteBuffer.allocate(100);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void send(String input) {
         ByteBuffer buffer = ByteBuffer.wrap(input.getBytes());
 	
 		sendPending = true;
-        CompletionHandler handler = new CompletionHandler() {
+        @SuppressWarnings("rawtypes")
+		CompletionHandler handler = new CompletionHandler() {
 		    @Override
 	        public void completed(Object result, Object attachment) {
 	        	System.out.println(attachment + " completed and " + result + " bytes are written.");
