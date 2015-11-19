@@ -3,6 +3,8 @@ package svg;
 public final class Text extends Placeable{
 	private String tag = "text";
 	private String caption;
+	private double length;
+	private String spacingAndGlyphs;
 	
 	public Text(String svgString) {
 		super();
@@ -20,6 +22,14 @@ public final class Text extends Placeable{
 
 	public String getTag() {
 		return tag;
+	}
+	
+	public String toCAMM(double globalScale) {
+		String res = "S %size\n"
+				+ "P%capt\n";
+		res = res.replaceAll("%size", this.fNumber(this.getCenterX(), globalScale));
+		res = res.replaceAll("%capt", this.caption);
+		return res;
 	}
 	
 	

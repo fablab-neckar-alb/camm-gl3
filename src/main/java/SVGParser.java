@@ -29,10 +29,10 @@ public class SVGParser {
 	public void parse(String line) {
 		int i=0;
 		while(i<line.length()) {
-			if(line.startsWith("</" + this.state.peek() + ">", i)) {
+			if(line.startsWith("</" + this.state.peek() + ">", i)) { //element ends
 				this.cursor = this.cursor.getParent();
 				i += 2 + this.state.pop().length();
-			} else if(inHeader && line.startsWith(">", i)) {
+			} else if(inHeader && line.startsWith(">", i)) { //header ends, but element continues
 				this.header += line.charAt(i);
 				Element newEl = generateElement(this.state.peek(), this.header);
 				if(newEl!=null) {
@@ -42,7 +42,7 @@ public class SVGParser {
 					else this.cursor = newEl;
 				}
 				this.inHeader = false;
-			} else if(inHeader && line.startsWith("/>", i)) {
+			} else if(inHeader && line.startsWith("/>", i)) { //header ends, element ends
 				this.header += line.substring(i, i+2);
 				Element newEl = generateElement(this.state.pop(), this.header);
 				if(newEl!=null) {
@@ -51,9 +51,9 @@ public class SVGParser {
 				}
 				this.inHeader = false;
 				i++;
-			} else if(inHeader) {
+			} else if(inHeader) { // header continues
 				this.header += line.charAt(i);
-			} else if(line.startsWith("<", i) && !this.inHeader) {
+			} else if(line.startsWith("<", i) && !this.inHeader) { //header starts
 				this.state.push(getTagFromLine(line, i));
 				this.inHeader = true;
 				this.header = "";
