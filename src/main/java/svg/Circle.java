@@ -52,4 +52,14 @@ public final class Circle extends Placeable{
 		return tag;
 	}
 	
+	public String toCAMM(double globalScale) {
+		String res = "M %x,%y\n" +
+				"^CI %r;\n";
+		res.replaceAll("%x", this.fNumber(this.getCenterX(), globalScale));
+		res.replaceAll("%y", this.fNumber(this.getCenterY(), globalScale));
+		res.replaceAll("%r", this.fNumber(this.radius, globalScale));
+		return res;
+	}
+
+	
 }

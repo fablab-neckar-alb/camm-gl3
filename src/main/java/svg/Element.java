@@ -55,11 +55,23 @@ public class Element {
 		return code;
 	}
 	
+	protected String fNumber(double x, double scale) {
+		return Integer.toString((int)(x*scale));
+	}
+	
 	public String toString() {
 		ArrayList<String> lines = new ArrayList<String>();
 		for(Element x : this.children) lines.addAll(Arrays.asList(x.toString().split("\n")));
 		String res = this.getTag() + "\n";
 		for(String x : lines) res += "\t" + x + "\n";
+		return res;
+	}
+	
+	public String toCAMM(double globalScale) {
+		String res = "";
+		for(Element x : this.children) {
+			res += x.toCAMM(globalScale);
+		}
 		return res;
 	}
 }

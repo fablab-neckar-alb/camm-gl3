@@ -14,6 +14,8 @@ public class EntryPoint {
 		SVGParser svgP = new SVGParser();
 		parseFile(svgP);
 		System.out.println(svgP.getRoot().toString());
+		System.out.println(svgP.getRoot().toCAMM(settings.getGlobal_scale()));
+		
 		
 		
 	}
@@ -27,6 +29,8 @@ public class EntryPoint {
 				parser.parse(line + "\n");
 				i++;
 			}
+			System.out.println(i + " lines parsed.");
+			br.close();
 		} catch (FileNotFoundException e) {
 			System.out.println("File \"" + settings.getInfile() + "\" not found. Abort.");
 			e.printStackTrace();
