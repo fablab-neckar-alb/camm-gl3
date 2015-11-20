@@ -1,18 +1,19 @@
 package svg;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public final class Text extends Placeable{
 	private String tag = "text";
 	private String caption;
 	private double length;
-	private String spacingAndGlyphs;
+	private String lengthAdjust;
 	
 	public Text(String svgString) {
 		super();
 		this.caption = "";
-		//TODO
+		String length = this.getValueFromKey("textLength", svgString);
+		if(length!=null) this.length = Double.parseDouble(length);
+		String lengthAdjust = this.getValueFromKey("lengthAdjust", svgString);
+		if(lengthAdjust!=null) this.lengthAdjust = lengthAdjust;
 	}
 
 	public String getCaption() {
