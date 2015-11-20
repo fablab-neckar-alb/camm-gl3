@@ -1,5 +1,8 @@
 package svg;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public final class Text extends Placeable{
 	private String tag = "text";
 	private String caption;
@@ -17,6 +20,11 @@ public final class Text extends Placeable{
 	}
 
 	public void setCaption(String caption) {
+		//strip off whitespaces
+		while(caption.startsWith(" ") || caption.startsWith("\n") || caption.startsWith("/t"))
+			caption = caption.substring(1);
+		while(caption.endsWith(" ") || caption.endsWith("\n") || caption.endsWith("/t"))
+			caption = caption.substring(0, caption.length()-1);
 		this.caption = caption;
 	}
 

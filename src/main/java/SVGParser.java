@@ -16,6 +16,9 @@ public class SVGParser {
 	private Stack<String> state;
 	private boolean metaState = false;
 	
+	private boolean specialCaseText = false;
+	private String specialCaseTextBuffer = "";
+	
 	private ArrayList<String> acceptableTags;
 	
 	public SVGParser() {
@@ -29,11 +32,18 @@ public class SVGParser {
 	public void parse(String line) {
 		int i=0;
 		while(i<line.length()) {
+			//System.out.println(this.specialCaseTextBuffer);
 			if(line.startsWith("</" + this.state.peek() + ">", i)) { //element ends
+				if(this.specialCaseText) {
+					((Text) this.cursor).setCaption(this.specialCaseTextBuffer);
+					this.specialCaseTextBuffer = "";
+					this.specialCaseText = false;
+				}
 				this.cursor = this.cursor.getParent();
 				i += 2 + this.state.pop().length();
 			} else if(inHeader && line.startsWith(">", i)) { //header ends, but element continues
 				this.header += line.charAt(i);
+				if(this.state.peek().equals("text")) this.specialCaseText = true;
 				Element newEl = generateElement(this.state.peek(), this.header);
 				if(newEl!=null) {
 					this.cursor.addChild(newEl);
@@ -59,6 +69,8 @@ public class SVGParser {
 				this.header = "";
 				this.header += line.charAt(i);
 				if(line.startsWith("<?", i) || line.startsWith("<!", i)) this.metaState = true;
+			} else if(specialCaseText) {
+				this.specialCaseTextBuffer += line.charAt(i);
 			}
 			i++;
 		}
@@ -77,6 +89,7 @@ public class SVGParser {
 	}
 
 	private Element generateElement(String tag, String svgString) {
+		
 		System.out.println("Generating " + tag + " by\n" + this.header + "\n");
 		if(tag.equals("svg")) return new SVG(svgString);
 		else if(tag.equals("circle")) return new Circle(svgString);
