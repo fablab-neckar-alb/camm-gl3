@@ -51,11 +51,25 @@ public class SVG extends Element{
 	
 	public String toCAMM(double globalScale) {
 		String res = "";
+		//some whitespaces and control 
+		//bytes I recorded from the originial printer
+		res += String.valueOf(0x03);
+		res += String.valueOf(0x0d);
+		res += String.valueOf(0x0a);
+		res += String.valueOf(0x0d);
+		res += String.valueOf(0x0a);
+		res += String.valueOf(0x0d);
+		res += String.valueOf(0x0a);
+		res += String.valueOf(0x0d);
+		res += String.valueOf(0x0a);
+		res += String.valueOf(0x0d);
+		res += String.valueOf(0x0a);
+		//meaning: Init, Cut at 0,0, set input window to 47000,64000, set velocity 30.
+		res += ";IN;PA0,0;IW0,0,47000,64000;VS30;";
 		for(Element x : this.children) {
 			res += x.toCAMM(globalScale);
-			res += "^OA;\n";
 		}
-		res += "H\n";
+		res += "PU0,0;";
 		return res;
 	}
 	
