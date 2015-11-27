@@ -3,6 +3,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import svg.SVG;
+
 
 
 
@@ -16,9 +18,15 @@ public class EntryPoint {
 	public static void main(String[] args) {
 		settings = CmdLine.generateSettingsFromArgs(args);
 		SVGParser svgP = new SVGParser();
-		parseFile(svgP);
-		System.out.println(svgP.getRoot().toString());
-		String commands = svgP.getRoot().toCAMM(settings.getGlobal_scale());
+		String commands;
+		if(settings.getAsciiBytes()!=null) {
+			commands = (new SVG("")).toCAMM(0.0);
+			commands += settings.getAsciiBytes();
+		} else {
+			parseFile(svgP);
+			System.out.println(svgP.getRoot().toString());
+			commands = svgP.getRoot().toCAMM(settings.getGlobal_scale());
+		}
 		System.out.println(commands);
 		try {
 			PlotterCommunicator comm = new PlotterCommunicator(settings.getPlotterDevice());

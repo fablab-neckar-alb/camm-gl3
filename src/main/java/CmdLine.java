@@ -35,12 +35,17 @@ public class CmdLine {
 	private static void addCommandLineOptions(Options options) {
 		options.addOption("h", "help", false, "displays this help message");
 		options.addOption("s", "scale", true, "global scale");
-		
+		options.addOption("b", "bytes", true, "enter ascii bytes directly into plotter without"
+				+ " looking into file");
 	}
 
 	private static Settings generateSettingsFromCmd(CommandLine cmd) {
 		Settings res = new Settings();
-		res.setInfile(cmd.getArgList().get(0)); //Here is assumed, that the first argument without a key is the FILE
+        String b = cmd.getOptionValue("b");
+        if(b!=null) res.setAsciiBytes(b);
+        //Here is assumed, that the first argument without a key is the FILE
+        else if (cmd.getArgList().size() > 0) res.setInfile(cmd.getArgList().get(0));
+        
 		String s = cmd.getOptionValue("s");
         if(s!=null) res.setGlobal_scale(Double.parseDouble(s));
 

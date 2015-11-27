@@ -4,6 +4,8 @@ public final class Settings {
 	private String plotterDevice = "/dev/usb/lp0";
 	
 	private double global_scale = 1.0;
+	
+	private String asciiBytes = "";
 
 	public String getInfile() {
 		return infile;
@@ -24,5 +26,15 @@ public final class Settings {
 	public String getPlotterDevice() {
 		return plotterDevice;
 	}
+
+	public String getAsciiBytes() {
+		return asciiBytes;
+	}
+
+	public void setAsciiBytes(String asciiBytes) {
+		this.asciiBytes = asciiBytes;
+	}
+	
+	
 	
 }
