@@ -20,7 +20,7 @@ public class EntryPoint {
 		SVGParser svgP = new SVGParser();
 		String commands;
 		if(settings.getAsciiBytes()!=null) {
-			commands = (new SVG("")).toCAMM(0.0);
+			commands = (new SVG()).toCAMM(0.0);
 			commands += settings.getAsciiBytes();
 		} else {
 			parseFile(svgP);
@@ -28,6 +28,7 @@ public class EntryPoint {
 			commands = svgP.getRoot().toCAMM(settings.getGlobal_scale());
 		}
 		System.out.println(commands);
+		System.out.println();
 		try {
 			PlotterCommunicator comm = new PlotterCommunicator(settings.getPlotterDevice());
 			comm.send(commands);

@@ -5,7 +5,7 @@ public final class Settings {
 	
 	private double global_scale = 1.0;
 	
-	private String asciiBytes = "";
+	private String asciiBytes;
 
 	public String getInfile() {
 		return infile;

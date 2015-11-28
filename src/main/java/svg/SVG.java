@@ -12,6 +12,10 @@ public class SVG extends Element{
 	protected ArrayList<Double> viewBox;
 	protected String unit;
 	
+	public SVG() {
+		super();
+	}
+	
 	public SVG(String svgString) {
 		super();
 		this.version = this.getValueFromKey("version", svgString);
@@ -53,17 +57,7 @@ public class SVG extends Element{
 		String res = "";
 		//some whitespaces and control 
 		//bytes I recorded from the originial printer
-		res += String.valueOf(0x03);
-		res += String.valueOf(0x0d);
-		res += String.valueOf(0x0a);
-		res += String.valueOf(0x0d);
-		res += String.valueOf(0x0a);
-		res += String.valueOf(0x0d);
-		res += String.valueOf(0x0a);
-		res += String.valueOf(0x0d);
-		res += String.valueOf(0x0a);
-		res += String.valueOf(0x0d);
-		res += String.valueOf(0x0a);
+		res +=  "\003\015\012\015\012\015\012\015\012\015\012";
 		//meaning: Init, Cut at 0,0, set input window to 47000,64000, set velocity 30.
 		res += ";IN;PA0,0;IW0,0,47000,64000;VS30;";
 		for(Element x : this.children) {

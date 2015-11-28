@@ -44,7 +44,7 @@ public class CmdLine {
         String b = cmd.getOptionValue("b");
         if(b!=null) res.setAsciiBytes(b);
         //Here is assumed, that the first argument without a key is the FILE
-        else if (cmd.getArgList().size() > 0) res.setInfile(cmd.getArgList().get(0));
+        else if (cmd.getArgList().size() >= 1) res.setInfile(cmd.getArgList().get(0));
         
 		String s = cmd.getOptionValue("s");
         if(s!=null) res.setGlobal_scale(Double.parseDouble(s));
