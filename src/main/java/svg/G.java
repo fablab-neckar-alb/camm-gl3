@@ -22,7 +22,17 @@ public class G extends Element{
 		} else if(str.startsWith("matrix(")) {
 			str = str.substring(7, str.indexOf(")"));
 			String macoords[] = str.split(",");
-			
+			if(macoords.length!=6) {
+				System.out.println("Unable to interpret " + str);
+				return;
+			}
+			this.transformation = new Matrix(
+					Double.parseDouble(macoords[0]), 
+					Double.parseDouble(macoords[1]), 
+					Double.parseDouble(macoords[2]), 
+					Double.parseDouble(macoords[3]), 
+					Double.parseDouble(macoords[4]), 
+					Double.parseDouble(macoords[5]));
 		}
 	}
 }
