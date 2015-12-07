@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.AccessDeniedException;
 
 import svg.SVG;
 
@@ -34,6 +35,9 @@ public class EntryPoint {
 			comm.send(commands);
 			
 			comm.close();
+		} catch (AccessDeniedException e) {
+			System.out.println("You must grant permission on the device. Please run\n"
+					+ "\tsudo chmod o+rw /dev/usb/lp0\nThen try again.");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
