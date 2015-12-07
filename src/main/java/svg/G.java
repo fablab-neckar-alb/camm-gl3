@@ -13,12 +13,12 @@ public class G extends Element{
 		if(str.startsWith("translate(")) {
 			str = str.substring(10, str.indexOf(")"));
 			String tlcoords[] = str.split(",");
-			if(tlcoords.length!=2) {
-				System.out.println("Unable to interpret " + str);
-				return;
-			}
-			this.transformation = new Translate(Double.parseDouble(tlcoords[0]), 
-					Double.parseDouble(tlcoords[1]));
+			if(tlcoords.length==1) 
+				this.transformation = new Translate(Double.parseDouble(tlcoords[0]), 0.0);
+			if(tlcoords.length==2) 
+				this.transformation = new Translate(Double.parseDouble(tlcoords[0]), 
+						Double.parseDouble(tlcoords[1]));
+			else System.out.println("Unable to interpret " + str);
 		} else if(str.startsWith("matrix(")) {
 			str = str.substring(7, str.indexOf(")"));
 			String macoords[] = str.split(",");
