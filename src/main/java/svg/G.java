@@ -33,6 +33,8 @@ public class G extends Element{
 					Double.parseDouble(macoords[3]), 
 					Double.parseDouble(macoords[4]), 
 					Double.parseDouble(macoords[5]));
+		} else if(str.startsWith("scale(")) {
+			//TODO needs refactoring. there should only matrices be allowed.
 		}
 	}
 }
