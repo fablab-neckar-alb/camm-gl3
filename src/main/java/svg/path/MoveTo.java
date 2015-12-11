@@ -1,18 +1,9 @@
 package svg.path;
 
 public class MoveTo extends PathElement{
-	private double x;
-	private double y;
-	private boolean relative;
 	
-	public MoveTo(String pathStr) {
-		if(pathStr.startsWith("M")) this.relative = true;
-		else this.relative = false;
-		pathStr = pathStr.substring(pathStr.indexOf(" "));
-		String els[] = pathStr.split(" ");
-		this.x = Double.parseDouble(els[0]);
-		this.y = Double.parseDouble(els[1]);
-		
+	public MoveTo(double x, double y, boolean relative) {
+		super(x, y, relative);
 	}
 	
 	public String toCamm(double globalScale) {
