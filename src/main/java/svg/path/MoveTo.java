@@ -1,14 +1,9 @@
 package svg.path;
 
 public class MoveTo extends PathElement{
-	private double x;
-	private double y;
-	private boolean relative;
 	
 	public MoveTo(double x, double y, boolean relative) {
-		this.x =  x;
-		this.y = y;
-		this.relative = relative;
+		super(x, y, relative);
 	}
 	
 	public void makeAbsolute(double cx, double cy) {
