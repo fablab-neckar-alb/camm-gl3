@@ -56,13 +56,15 @@ public class SVG extends Element{
 	public String toCAMM(double globalScale) {
 		String res = "";
 		//some whitespaces and control 
-		//bytes I recorded from the originial printer
+		//bytes I recorded from the originial printer, propably in order to ensure, 
+		//that no leading command will be mixed with the following.
 		res +=  "\003\015\012\015\012\015\012\015\012\015\012";
 		//meaning: Init, Cut at 0,0, set input window to 47000,64000, set velocity 30.
 		res += ";IN;PA0,0;IW0,0,47000,64000;VS30;";
 		for(Element x : this.children) {
 			res += x.toCAMM(globalScale);
 		}
+		//at the end, go to zero zero
 		res += "PU0,0;";
 		return res;
 	}
