@@ -1,5 +1,7 @@
 package svg;
 
+import java.util.ArrayList;
+
 import svg.path.PathElement;
 
 public class Path extends Placeable{

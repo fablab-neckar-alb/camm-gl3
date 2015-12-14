@@ -5,14 +5,18 @@ public class MoveTo extends PathElement{
 	private double y;
 	private boolean relative;
 	
-	public MoveTo(String pathStr) {
-		if(pathStr.startsWith("M")) this.relative = true;
-		else this.relative = false;
-		pathStr = pathStr.substring(pathStr.indexOf(" "));
-		String els[] = pathStr.split(" ");
-		this.x = Double.parseDouble(els[0]);
-		this.y = Double.parseDouble(els[1]);
-		
+	public MoveTo(double x, double y, boolean relative) {
+		this.x =  x;
+		this.y = y;
+		this.relative = relative;
+	}
+	
+	public void makeAbsolute(double cx, double cy) {
+		if(this.relative) {		
+			this.x += cx;
+			this.y += cy;
+		}
+		this.next().makeAbsolute(this.x, this.y);
 	}
 	
 	public String toCamm(double globalScale) {

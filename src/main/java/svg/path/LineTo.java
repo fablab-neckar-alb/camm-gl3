@@ -11,7 +11,11 @@ public class LineTo extends PathElement {
 	}
 	
 	public void makeAbsolute(double cx, double cy) {
-		this.next().makeAbsolute(cx, cy);
+		if(this.relative) {		
+			this.x += cx;
+			this.y += cy;
+		}
+		this.next().makeAbsolute(this.x, this.y);
 	}
 	
 	public String toCamm(double globalScale) {
