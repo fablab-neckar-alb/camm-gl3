@@ -59,8 +59,11 @@ public class SVG extends Element{
 		//bytes I recorded from the originial printer, propably in order to ensure, 
 		//that no leading command will be mixed with the following.
 		res +=  "\003\015\012\015\012\015\012\015\012\015\012";
-		//meaning: Init, Cut at 0,0, set input window to 47000,64000, set velocity 30.
-		res += ";IN;PA0,0;IW0,0,47000,64000;VS30;";
+		res += ";IN;"                     //Init
+				+ "PA0,0;"                //Cut at 0,0
+				+ "IW0,0,47000,64000;"    //set input window to 47000,64000
+				+ "VS30;"                 //velocity 30
+				+ "DT\u0003;";            //escape character for labels
 		for(Element x : this.children) {
 			res += x.toCAMM(globalScale);
 		}

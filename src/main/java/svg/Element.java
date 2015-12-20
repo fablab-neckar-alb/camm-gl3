@@ -59,6 +59,10 @@ public class Element {
 		return Integer.toString((int)(x*scale));
 	}
 	
+	protected String fDouble(double x, double scale) {
+		return Double.toString(x*scale);
+	}
+	
 	public String toString() {
 		ArrayList<String> lines = new ArrayList<String>();
 		for(Element x : this.children) lines.addAll(Arrays.asList(x.toString().split("\n")));
