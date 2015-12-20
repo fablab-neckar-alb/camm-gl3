@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
+import java.nio.file.NoSuchFileException;
 
 import svg.SVG;
 
@@ -38,6 +39,8 @@ public class EntryPoint {
 		} catch (AccessDeniedException e) {
 			System.out.println("You must grant permission on the device. Please run\n"
 					+ "\tsudo chmod o+rw /dev/usb/lp0\nThen try again.");
+		} catch (NoSuchFileException e) {
+			System.out.println("No connected plotter found. Abort.");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
