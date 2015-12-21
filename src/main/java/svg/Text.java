@@ -1,16 +1,16 @@
 package svg;
 
-import java.util.ArrayList;
 
 
 public final class Text extends Placeable{
 	private String tag = "text";
 	private String caption;
 	private double length;
+	@SuppressWarnings("unused")
 	private String lengthAdjust;
 	
 	public Text(String svgString) {
-		super();
+		super(svgString);
 		this.caption = "";
 		String x = this.getValueFromKey("x", svgString);
 		if(x!=null) this.centerX = Double.parseDouble(x);

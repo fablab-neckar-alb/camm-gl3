@@ -23,38 +23,52 @@ public class Placeable extends Element{
 	 * 
 	 */
 	public void flattenTransform() {
-		for(Element x : this.children) ((Placeable) x).flattenTransform();
+		for(Element x : this.children) {
+			try{
+				((Placeable) x).flattenTransform();
+			} catch (ClassCastException e) {}
+		}
 		ArrayList<Double> newCenter = this.transformation.map(centerX, centerY);
 		this.centerX = newCenter.get(0);
 		this.centerY = newCenter.get(1);
 	}
 
 	private void setTransformation(String str) {
-		if(str.startsWith("translate(")) {
-			str = str.substring(10, str.indexOf(")"));
-			String tlcoords[] = str.split(",");
-			if(tlcoords.length==1) 
-				this.transformation = new Translate(Double.parseDouble(tlcoords[0]), 0.0);
-			if(tlcoords.length==2) 
-				this.transformation = new Translate(Double.parseDouble(tlcoords[0]), 
-						Double.parseDouble(tlcoords[1]));
-			else System.out.println("Unable to interpret " + str);
-		} else if(str.startsWith("matrix(")) {
-			str = str.substring(7, str.indexOf(")"));
-			String macoords[] = str.split(",");
-			if(macoords.length!=6) {
-				System.out.println("Unable to interpret " + str);
-				return;
+		this.transformation = new Translate(0.0,0.0);
+		Transformation cursor = this.transformation;
+		while(!str.isEmpty()) {
+			if(str.startsWith("translate(")) {
+				str = str.substring(10, str.indexOf(")"));
+				String tlcoords[] = str.split(",");
+				if(tlcoords.length==1) {
+					cursor.setNext(new Translate(Double.parseDouble(tlcoords[0]), 0.0));
+					cursor = cursor.getNext();
+				}
+				if(tlcoords.length==2) {
+					cursor.setNext(new Translate(Double.parseDouble(tlcoords[0]), 
+							Double.parseDouble(tlcoords[1])));
+					cursor = cursor.getNext();
+				}
+			} else if(str.startsWith("matrix(")) {
+				str = str.substring(7, str.indexOf(")"));
+				String macoords[] = str.split(",");
+				if(macoords.length!=6) {
+					System.out.println("Unable to interpret " + str);
+					return;
+				}
+				cursor.setNext(new Matrix(
+						Double.parseDouble(macoords[0]), 
+						Double.parseDouble(macoords[1]), 
+						Double.parseDouble(macoords[2]), 
+						Double.parseDouble(macoords[3]), 
+						Double.parseDouble(macoords[4]), 
+						Double.parseDouble(macoords[5])));
+				cursor = cursor.getNext();
+			} else if(str.startsWith("scale(")) {
+				//TODO needs refactoring. there should only matrices be allowed.
+			} else {
+				str = str.substring(1);
 			}
-			this.transformation = new Matrix(
-					Double.parseDouble(macoords[0]), 
-					Double.parseDouble(macoords[1]), 
-					Double.parseDouble(macoords[2]), 
-					Double.parseDouble(macoords[3]), 
-					Double.parseDouble(macoords[4]), 
-					Double.parseDouble(macoords[5]));
-		} else if(str.startsWith("scale(")) {
-			//TODO needs refactoring. there should only matrices be allowed.
 		}
 	}
 
