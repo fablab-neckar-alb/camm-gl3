@@ -29,7 +29,7 @@ public class PlotterCommunicator {
 		CompletionHandler handler = new CompletionHandler() {
 		    @Override
 	        public void completed(Object result, Object attachment) {
-	        	System.out.println(attachment + " completed and " + result + " bytes are written.");
+	        	//System.out.println(attachment + " completed and " + result + " bytes are written.");
 	        	sendPending = false;
 	        }
 		    @Override
@@ -40,6 +40,7 @@ public class PlotterCommunicator {
         };
         channel.write(buffer, 0, "Write operation ALFA", handler);
         while(sendPending);
+    	System.out.println(input);
 	}
 	
 	public String read() {

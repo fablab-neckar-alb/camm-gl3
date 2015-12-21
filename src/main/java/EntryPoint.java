@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
 import java.nio.file.NoSuchFileException;
+import java.util.ArrayList;
 
 import svg.Element;
 import svg.SVG;
@@ -22,6 +23,7 @@ public class EntryPoint {
 		settings = CmdLine.generateSettingsFromArgs(args);
 		SVGParser svgP = new SVGParser();
 		String commands;
+		String[] commandArr = {""};
 		if(settings.getAsciiBytes()!=null) {
 			commands = (new SVG()).toCAMM(0.0);
 			commands += settings.getAsciiBytes();
@@ -37,12 +39,16 @@ public class EntryPoint {
 			}
 			System.out.println(svgP.getRoot().toString());
 			commands = svgP.getRoot().toCAMM(settings.getGlobal_scale());
+			commandArr = commands.split(";");
 		}
 		System.out.println(commands);
 		System.out.println();
 		try {
 			PlotterCommunicator comm = new PlotterCommunicator(settings.getPlotterDevice());
-			comm.send(commands);
+			for(String x : commandArr) {
+				comm.send(x + ";");
+			}
+			//comm.send(commands);
 			
 			comm.close();
 		} catch (AccessDeniedException e) {
