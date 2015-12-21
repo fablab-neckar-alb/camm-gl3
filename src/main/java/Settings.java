@@ -8,6 +8,8 @@ public final class Settings {
 	private String asciiBytes;
 	
 	private boolean sortForY = false;
+	
+	private boolean weirdTreePlotOptim = false;
 
 	public String getInfile() {
 		return infile;
@@ -43,6 +45,14 @@ public final class Settings {
 
 	public void setSortForY(boolean sortForY) {
 		this.sortForY = sortForY;
+	}
+
+	public boolean isWeirdTreePlotOptim() {
+		return weirdTreePlotOptim;
+	}
+
+	public void setWeirdTreePlotOptim(boolean weirdTreePlotOptim) {
+		this.weirdTreePlotOptim = weirdTreePlotOptim;
 	}
 	
 	

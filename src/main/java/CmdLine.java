@@ -38,7 +38,8 @@ public class CmdLine {
 		options.addOption("b", "bytes", true, "enter ascii bytes directly into plotter without"
 				+ " looking into file");
 		options.addOption("y", "y-axis", false, "sort elements for smallest y-axis usage");
-		
+		options.addOption("w", "weird", false, "turn on some fancy optimizations, which only make "
+				+ "sense to be in use with weird-tree-plot files");
 	}
 
 	private static Settings generateSettingsFromCmd(CommandLine cmd) {
@@ -52,6 +53,8 @@ public class CmdLine {
         if(s!=null) res.setGlobal_scale(Double.parseDouble(s));
         
         if(cmd.hasOption("y")) res.setSortForY(true);
+        if(cmd.hasOption("w")) res.setWeirdTreePlotOptim(true);
+        
 
 		return res;
 	}
