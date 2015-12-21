@@ -1,5 +1,7 @@
 package svg;
 
+import java.util.ArrayList;
+
 
 public final class Text extends Placeable{
 	private String tag = "text";
@@ -30,6 +32,8 @@ public final class Text extends Placeable{
 			caption = caption.substring(1);
 		while(caption.endsWith(" ") || caption.endsWith("\n") || caption.endsWith("\t"))
 			caption = caption.substring(0, caption.length()-1);
+		//remove all non ascii chars
+		caption = caption.replaceAll("[^\\x20-\\x7e]", "");
 		this.caption = caption;
 	}
 

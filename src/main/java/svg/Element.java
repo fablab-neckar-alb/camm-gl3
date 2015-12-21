@@ -1,7 +1,9 @@
 package svg;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -60,7 +62,9 @@ public class Element {
 	}
 	
 	protected String fDouble(double x, double scale) {
-		return Double.toString(x*scale);
+		Locale.setDefault(Locale.ENGLISH);
+		DecimalFormat df = new DecimalFormat("#.#####");
+		return df.format(x*scale);
 	}
 	
 	public String toString() {
