@@ -40,7 +40,12 @@ public class Element {
 				((Placeable) x).flattenTransform();
 				((Placeable) x).setCenterX(((Placeable) x).getCenterX() * globalScale);
 				((Placeable) x).setCenterY(((Placeable) x).getCenterY() * globalScale);
+				((Circle) x).setRadius(((Circle) x).getRadius() * globalScale);
 			} catch (ClassCastException e) {}
+			try{
+				((Text) x).setLength(((Text) x).getLength() * globalScale);
+			} catch (ClassCastException e) {}
+			
 		}
 	}
 	

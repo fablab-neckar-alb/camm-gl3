@@ -65,7 +65,7 @@ public final class Circle extends Placeable{
 		res = res.replaceAll("%x", this.fNumber(this.getCenterX(), globalScale));
 		res = res.replaceAll("%y", this.fNumber(this.getCenterY(), globalScale));
 		res = res.replaceAll("%r", this.fNumber(this.radius, globalScale));
-		if(this.slow) res = "VS10;" + res + "VS30;";
+		if(this.slow) res = "VS2;" + res + "VS30;";
 		return res;
 	}
 

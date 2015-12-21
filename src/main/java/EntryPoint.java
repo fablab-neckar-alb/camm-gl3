@@ -24,11 +24,11 @@ public class EntryPoint {
 	public static void main(String[] args) {
 		settings = CmdLine.generateSettingsFromArgs(args);
 		SVGParser svgP = new SVGParser();
-		String commands;
+		String commands = "";
 		String[] commandArr = {""};
 		if(settings.getAsciiBytes()!=null) {
-			commands = (new SVG()).toCAMM(0.0);
-			commands += settings.getAsciiBytes();
+			commandArr[0] = (new SVG()).toCAMM(0.0);
+			commandArr[0] += settings.getAsciiBytes();
 		} else {
 			parseFile(svgP);
 			svgP.getRoot().flattenAllTransforms(settings.getGlobal_scale());
@@ -72,9 +72,10 @@ public class EntryPoint {
 			try{
 				if(((Circle) x).getRadius() > settings.getSlowCircleMinRadius())
 					((Circle) x).setSlow(true);
+			} catch (ClassCastException e) {}
+			try{
 				if(((Text) x).getLength() / ((Text) x).getCaption().length() < settings.getTextMinCharSize())
 					((Text) x).setLength(0.0);
-				
 			} catch (ClassCastException e) {}
 		}
 	}
