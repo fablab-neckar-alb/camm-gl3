@@ -26,6 +26,7 @@ public class EntryPoint {
 			commands += settings.getAsciiBytes();
 		} else {
 			parseFile(svgP);
+			svgP.getRoot().flattenAllTransforms();
 			System.out.println(svgP.getRoot().toString());
 			commands = svgP.getRoot().toCAMM(settings.getGlobal_scale());
 		}

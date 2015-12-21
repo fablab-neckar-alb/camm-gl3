@@ -1,5 +1,6 @@
 package svg;
 
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,6 +32,23 @@ public class Element {
 		} catch (IllegalStateException e) {
 			return null;
 		}		
+	}
+	
+	public void flattenAllTransforms() {
+		for(Element x : this.getSubTree()) {
+			try{
+				((Placeable) x).flattenTransform();
+			} catch (ClassCastException e) {}
+		}
+	}
+	
+	public ArrayList<Element> getSubTree() {
+		ArrayList<Element> res = new ArrayList<Element>();
+		for(Element x : this.children) {
+			res.addAll(x.getSubTree());
+		}
+		res.add(this);
+		return res;
 	}
 
 	public Element getParent() {

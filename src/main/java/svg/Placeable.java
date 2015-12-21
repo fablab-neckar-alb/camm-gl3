@@ -19,15 +19,10 @@ public class Placeable extends Element{
 		if(transform!=null) this.setTransformation(transform);
 	}
 	
-	/** flatten transforms recursively
+	/** flatten transforms for this Placeable
 	 * 
 	 */
 	public void flattenTransform() {
-		for(Element x : this.children) {
-			try{
-				((Placeable) x).flattenTransform();
-			} catch (ClassCastException e) {}
-		}
 		ArrayList<Double> newCenter = this.transformation.map(centerX, centerY);
 		this.centerX = newCenter.get(0);
 		this.centerY = newCenter.get(1);
