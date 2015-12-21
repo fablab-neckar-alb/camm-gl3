@@ -10,6 +10,7 @@ public final class Settings {
 	private boolean sortForY = false;
 	
 	private boolean weirdTreePlotOptim = false;
+	private final double slowCircleMinRadius = 1000;
 
 	public String getInfile() {
 		return infile;
@@ -53,6 +54,10 @@ public final class Settings {
 
 	public void setWeirdTreePlotOptim(boolean weirdTreePlotOptim) {
 		this.weirdTreePlotOptim = weirdTreePlotOptim;
+	}
+
+	public double getSlowCircleMinRadius() {
+		return slowCircleMinRadius;
 	}
 	
 	

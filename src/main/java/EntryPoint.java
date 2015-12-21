@@ -6,6 +6,7 @@ import java.nio.file.AccessDeniedException;
 import java.nio.file.NoSuchFileException;
 import java.util.ArrayList;
 
+import svg.Circle;
 import svg.Element;
 import svg.SVG;
 
@@ -37,6 +38,7 @@ public class EntryPoint {
 					} catch (ClassCastException e) {}
 				}
 			}
+			if(settings.isWeirdTreePlotOptim()) optimizeForWTP(svgP.getRoot().getSubTree());
 			System.out.println(svgP.getRoot().toString());
 			commands = svgP.getRoot().toCAMM(settings.getGlobal_scale());
 			commandArr = commands.split(";");
@@ -63,6 +65,16 @@ public class EntryPoint {
 		
 	}
 	
+	private static void optimizeForWTP(ArrayList<Element> elems) {
+		for(Element x : elems) {
+			try{
+				if(((Circle) x).getRadius() > settings.getSlowCircleMinRadius())
+					((Circle) x).setSlow(true);
+				
+			} catch (ClassCastException e) {}
+		}
+	}
+
 	private static void parseFile(SVGParser parser) {
 		try{
 			BufferedReader br = new BufferedReader(new FileReader(settings.getInfile()));

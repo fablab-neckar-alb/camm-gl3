@@ -8,6 +8,9 @@ public final class Circle extends Placeable{
 	protected String strokeColor;
 	protected double strokeWidth;
 	
+	//WTP optim
+	protected boolean slow = false;
+	
 	public Circle() {
 		super();
 	}
@@ -52,12 +55,17 @@ public final class Circle extends Placeable{
 		return tag + " " + this.transformation;
 	}
 	
+	public void setSlow(boolean slow) {
+		this.slow = slow;
+	}
+
 	public String toCAMM(double globalScale) {
 		String res = "PU%x,%y;" +
 				"CI%r;";
 		res = res.replaceAll("%x", this.fNumber(this.getCenterX(), globalScale));
 		res = res.replaceAll("%y", this.fNumber(this.getCenterY(), globalScale));
 		res = res.replaceAll("%r", this.fNumber(this.radius, globalScale));
+		if(this.slow) res = "VS10;" + res + "VS30;";
 		return res;
 	}
 
