@@ -41,7 +41,16 @@ public final class Text extends Placeable{
 		return tag + " " + this.length + " '" + this.caption + "' " + this.caption.length();
 	}
 	
+	public double getLength() {
+		return length;
+	}
+
+	public void setLength(double length) {
+		this.length = length;
+	}
+
 	public String toCAMM(double globalScale) {
+		if(this.length == 0.0) return "";
 		String res = "PU%xpos,%ypos;SI%sizex,%sizey;LB%caption\u0003;";
 		res = res.replaceAll("%caption", this.caption);
 		res = res.replaceAll("%xpos", 

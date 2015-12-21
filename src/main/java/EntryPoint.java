@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import svg.Circle;
 import svg.Element;
 import svg.SVG;
+import svg.Text;
 
 
 
@@ -70,6 +71,8 @@ public class EntryPoint {
 			try{
 				if(((Circle) x).getRadius() > settings.getSlowCircleMinRadius())
 					((Circle) x).setSlow(true);
+				if(((Text) x).getLength() / ((Text) x).getCaption().length() < settings.getTextMinCharSize())
+					((Text) x).setLength(0.0);
 				
 			} catch (ClassCastException e) {}
 		}

@@ -10,7 +10,8 @@ public final class Settings {
 	private boolean sortForY = false;
 	
 	private boolean weirdTreePlotOptim = false;
-	private final double slowCircleMinRadius = 1000;
+	private final double slowCircleMinRadius = 1000.0;
+	private final double textMinCharSize = 70.0;
 
 	public String getInfile() {
 		return infile;
@@ -58,6 +59,10 @@ public final class Settings {
 
 	public double getSlowCircleMinRadius() {
 		return slowCircleMinRadius;
+	}
+
+	public double getTextMinCharSize() {
+		return textMinCharSize;
 	}
 	
 	
