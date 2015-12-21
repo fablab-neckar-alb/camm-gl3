@@ -13,7 +13,7 @@ public final class Circle extends Placeable{
 	}
 	
 	public Circle(String svgString) {
-		super();
+		super(svgString);
 		String cx = this.getValueFromKey("cx", svgString);
 		if(cx!=null) this.centerX = Double.parseDouble(cx);
 		String cy = this.getValueFromKey("cy", svgString);
@@ -49,7 +49,7 @@ public final class Circle extends Placeable{
 	}
 
 	public String getTag() {
-		return tag;
+		return tag + " " + this.transformation;
 	}
 	
 	public String toCAMM(double globalScale) {
