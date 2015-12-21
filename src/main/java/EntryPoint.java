@@ -31,7 +31,8 @@ public class EntryPoint {
 			commands += settings.getAsciiBytes();
 		} else {
 			parseFile(svgP);
-			svgP.getRoot().flattenAllTransforms();
+			svgP.getRoot().flattenAllTransforms(settings.getGlobal_scale());
+			settings.setGlobal_scale(1.0);
 			if(settings.isSortForY()) {
 				for(Element x : svgP.getRoot().getChildren()) {
 					try{

@@ -34,10 +34,12 @@ public class Element {
 		}		
 	}
 	
-	public void flattenAllTransforms() {
+	public void flattenAllTransforms(double globalScale) {
 		for(Element x : this.getSubTree()) {
 			try{
 				((Placeable) x).flattenTransform();
+				((Placeable) x).setCenterX(((Placeable) x).getCenterX() * globalScale);
+				((Placeable) x).setCenterY(((Placeable) x).getCenterY() * globalScale);
 			} catch (ClassCastException e) {}
 		}
 	}
