@@ -6,6 +6,8 @@ public final class Settings {
 	private double global_scale = 1.0;
 	
 	private String asciiBytes;
+	
+	private boolean sortForY = false;
 
 	public String getInfile() {
 		return infile;
@@ -34,6 +36,15 @@ public final class Settings {
 	public void setAsciiBytes(String asciiBytes) {
 		this.asciiBytes = asciiBytes;
 	}
+
+	public boolean isSortForY() {
+		return sortForY;
+	}
+
+	public void setSortForY(boolean sortForY) {
+		this.sortForY = sortForY;
+	}
+	
 	
 	
 	

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.AccessDeniedException;
 import java.nio.file.NoSuchFileException;
 
+import svg.Element;
 import svg.SVG;
 
 
@@ -27,6 +28,13 @@ public class EntryPoint {
 		} else {
 			parseFile(svgP);
 			svgP.getRoot().flattenAllTransforms();
+			if(settings.isSortForY()) {
+				for(Element x : svgP.getRoot().getChildren()) {
+					try{
+						((SVG) x).sortForY();
+					} catch (ClassCastException e) {}
+				}
+			}
 			System.out.println(svgP.getRoot().toString());
 			commands = svgP.getRoot().toCAMM(settings.getGlobal_scale());
 		}

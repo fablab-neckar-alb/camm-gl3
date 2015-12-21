@@ -1,6 +1,8 @@
 package svg;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class SVG extends Element{
 	protected String tag = "svg";
@@ -47,6 +49,21 @@ public class SVG extends Element{
 				this.viewBox = null;
 			}
 		}
+	}
+	
+	public void sortForY() {
+		Collections.sort(this.children, new Comparator<Element>() {
+			public int compare(Element el1, Element el2) {
+				try {
+					double y1 = ((Placeable) el1).getCenterY();
+					double y2 = ((Placeable) el2).getCenterY();
+					if(y1 < y2) return -1;
+					else if(y1 > y2) return 1;
+					else return 0;
+				} catch (ClassCastException e) {}
+				return 0;
+			}
+		});
 	}
 
 	public String getTag() {

@@ -37,6 +37,8 @@ public class CmdLine {
 		options.addOption("s", "scale", true, "global scale");
 		options.addOption("b", "bytes", true, "enter ascii bytes directly into plotter without"
 				+ " looking into file");
+		options.addOption("y", "y-axis", false, "sort elements for smallest y-axis usage");
+		
 	}
 
 	private static Settings generateSettingsFromCmd(CommandLine cmd) {
@@ -48,6 +50,8 @@ public class CmdLine {
         
 		String s = cmd.getOptionValue("s");
         if(s!=null) res.setGlobal_scale(Double.parseDouble(s));
+        
+        if(cmd.hasOption("y")) res.setSortForY(true);
 
 		return res;
 	}
