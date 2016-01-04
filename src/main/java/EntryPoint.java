@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
 import java.nio.file.NoSuchFileException;
@@ -29,8 +30,11 @@ public class EntryPoint {
 		if(settings.getAsciiBytes()!=null) {
 			commandArr[0] = (new SVG()).toCAMM(0.0);
 			commandArr[0] += settings.getAsciiBytes();
+		} if(settings.getInfile().endsWith(".camm")) {
+			commands = parseCAMMFile();
+			commandArr = commands.split(";/n");
 		} else {
-			parseFile(svgP);
+			parseSVGFile(svgP);
 			svgP.getRoot().flattenAllTransforms(settings.getGlobal_scale());
 			settings.setGlobal_scale(1.0);
 			if(settings.isSortForY()) {
@@ -44,6 +48,7 @@ public class EntryPoint {
 			System.out.println(svgP.getRoot().toString());
 			commands = svgP.getRoot().toCAMM(settings.getGlobal_scale());
 			commandArr = commands.split(";");
+			if(settings.getOutfile() != null) exportCAMMtoFile(commandArr);
 		}
 		System.out.println(commands);
 		System.out.println();
@@ -66,7 +71,7 @@ public class EntryPoint {
 		}
 		
 	}
-	
+
 	private static void optimizeForWTP(ArrayList<Element> elems) {
 		for(Element x : elems) {
 			try{
@@ -80,7 +85,7 @@ public class EntryPoint {
 		}
 	}
 
-	private static void parseFile(SVGParser parser) {
+	private static void parseSVGFile(SVGParser parser) {
 		try{
 			BufferedReader br = new BufferedReader(new FileReader(settings.getInfile()));
 			String line;
@@ -99,6 +104,41 @@ public class EntryPoint {
 			System.out.println("IOException. Abort.");
 			e.printStackTrace();
 			return;
+		}
+	}
+	
+	private static String parseCAMMFile() {
+		String res = "";
+		try{
+			BufferedReader br = new BufferedReader(new FileReader(settings.getInfile()));
+			String line;
+			int i=0;
+			while((line = br.readLine()) != null) {
+				res += line;
+				i++;
+			}
+			System.out.println(i + " lines parsed.");
+			br.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("File \"" + settings.getInfile() + "\" not found. Abort.");
+			e.printStackTrace();
+			return "";
+		} catch (IOException e) {
+			System.out.println("IOException. Abort.");
+			e.printStackTrace();
+			return "";
+		}
+		return res;
+	}
+	
+	private static void exportCAMMtoFile(String[] commandArr) {
+		FileWriter writer;
+		try {
+			writer = new FileWriter(settings.getOutfile());
+			for(String x : commandArr) writer.append(x + ";\n");
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 

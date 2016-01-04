@@ -1,6 +1,7 @@
 
 public final class Settings {
 	private String infile;
+	private String outfile;
 	private String plotterDevice = "/dev/usb/lp0";
 	
 	private double global_scale = 1.0;
@@ -64,6 +65,15 @@ public final class Settings {
 	public double getTextMinCharSize() {
 		return textMinCharSize;
 	}
+
+	public String getOutfile() {
+		return outfile;
+	}
+
+	public void setOutfile(String outfile) {
+		this.outfile = outfile;
+	}
+	
 	
 	
 	
