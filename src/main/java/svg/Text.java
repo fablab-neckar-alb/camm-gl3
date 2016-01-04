@@ -51,7 +51,7 @@ public final class Text extends Placeable{
 
 	public String toCAMM(double globalScale) {
 		if(this.length == 0.0) return "";
-		String res = "PU%xpos,%ypos;SI%sizex,%sizey;LB%caption\u0003;";
+		String res = "PU%xpos,%ypos;VS2;SI%sizex,%sizey;LB%caption\u0003;VS30;";
 		res = res.replaceAll("%caption", this.caption);
 		res = res.replaceAll("%xpos", 
 				this.fNumber(this.centerX - this.length / 2, globalScale));
